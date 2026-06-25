@@ -151,8 +151,10 @@ h1,h2,h3,.display{font-family:'Fraunces',Georgia,serif;}
 }
 .field input:focus{outline:none;border-color:var(--bleu-clair);box-shadow:0 0 0 3px rgba(42,86,136,.18);}
 .btn{
+  display:block;
   width:100%;padding:17px;margin-top:8px;
   font-family:'Fraunces',serif;font-size:18px;font-weight:600;
+  text-align:center;text-decoration:none;
   color:var(--bleu-nuit);background:linear-gradient(135deg,var(--or-clair),var(--or));
   border:none;border-radius:10px;cursor:pointer;
   transition:transform .15s,box-shadow .2s;
@@ -217,28 +219,12 @@ footer .fbrand{color:var(--or);font-weight:700;letter-spacing:2px;font-family:'F
 <section class="form-section">
   <div class="form-card">
     <h2>Recevez le guide gratuitement</h2>
-    <p class="sub">Entrez votre prénom et votre email — le PDF arrive directement dans votre boîte mail.</p>
+    <p class="sub">Cliquez ci-dessous, entrez votre email sur la page sécurisée, et recevez le guide directement dans votre boîte mail.</p>
 
-    <!-- ===================================================================
-         FORMULAIRE BREVO
-         Remplacez les 2 valeurs marquées "À_REMPLACER" par les vôtres
-         (voir les instructions que je t'ai données). Rien d'autre à toucher.
-         =================================================================== -->
-    <form id="capture-form"
-          action="https://VOTRE-SOUS-DOMAINE.sibforms.com/serve/À_REMPLACER"
-          method="POST">
-      <div class="field">
-        <label for="prenom">Votre prénom</label>
-        <input type="text" id="prenom" name="PRENOM" placeholder="Ex. Mariam" required>
-      </div>
-      <div class="field">
-        <label for="email">Votre email</label>
-        <input type="email" id="email" name="EMAIL" placeholder="vous@exemple.com" required>
-      </div>
-      <button type="submit" class="btn">Recevoir mon guide gratuit →</button>
-      <p class="privacy">Vos données restent confidentielles. Désinscription possible à tout moment.</p>
-    </form>
-    <div id="msg"></div>
+    <a href="https://rgelmefs.mychariow.shop/prd_fe4xg5ta/checkout" class="btn" rel="noopener">
+      Recevoir mon guide gratuit →
+    </a>
+    <p class="privacy">100&nbsp;% gratuit. Vos données restent confidentielles. Désinscription possible à tout moment.</p>
   </div>
 </section>
 
@@ -249,33 +235,6 @@ footer .fbrand{color:var(--or);font-weight:700;letter-spacing:2px;font-family:'F
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
-
-// Soumission AJAX vers Brevo : l'utilisateur reste sur la page et voit un message de confirmation.
-const form = document.getElementById('capture-form');
-const msg  = document.getElementById('msg');
-
-form.addEventListener('submit', async function(e){
-  e.preventDefault();
-  const btn = form.querySelector('.btn');
-  btn.disabled = true;
-  btn.textContent = 'Envoi en cours…';
-  msg.className = ''; msg.style.display='none';
-
-  try{
-    const data = new FormData(form);
-    await fetch(form.action, { method:'POST', body:data, mode:'no-cors' });
-    // En mode no-cors la réponse n'est pas lisible : on considère l'envoi réussi.
-    msg.textContent = '✓ Merci ! Vérifiez votre boîte mail (et vos spams) pour recevoir le guide.';
-    msg.className = 'ok';
-    form.reset();
-    btn.textContent = 'C\'est envoyé ✓';
-  }catch(err){
-    msg.textContent = 'Une erreur est survenue. Réessayez dans un instant.';
-    msg.className = 'err';
-    btn.disabled = false;
-    btn.textContent = 'Recevoir mon guide gratuit →';
-  }
-});
 </script>
 
 </body>
